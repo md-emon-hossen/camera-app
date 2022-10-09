@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>camera</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            box-sizing:border-box;
+        }
+        .container{
+            width: 440px;
+            height:650px;
+            margin:auto;
+            background: rgb(168, 164, 164);
+            
+        }
+        .btn{
+            height: 55px;
+            width: 55px;
+            border-radius: 50%;
+            outline: none;
+            border:none;
+            font-weight: 600;
+            color: rgb(37, 37, 37);
+            transition:1s;
+        }
+        .btn:hover{
+            background: purple;
+            cursor: pointer;
+            color: #fff;
+
+        }
+        .btnDiv{
+            width: 100px;
+            margin:auto;
+            transform: translateY(-85px);
+        }
+        .video{
+            height: 440px;
+            width: 440px;
+            position: relative;
+            
+           
+        }
+        .mainCamera{
+            background-color: red;
+            height:440px;
+            width: 440px;
+        }
+        .vdo{
+        height: 440px;
+        width: 440px;
+        background-color: rgb(22, 22, 22);
+    }
+    .canvas{
+        background: rgb(136, 67, 67);
+        width: 100%;
+        height: 100%;
+        border:none;
+       
+    }
+  
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+           <div class="mainCamera">
+                <div class="vdo">
+                    <video class="video"autoplay="true"></video>
+                </div>
+                <div class="btnDiv">
+                    <button onclick="handleClicl()" class="btn">Take</button>
+                </div>
+           </div>
+           <div class="saveCamera">
+               <canvas class="canvas"></canvas>
+           </div>
+
+        </div>
+    </main>
+    <script>
+        const video=document.querySelector(".video");
+        const canvas=document.querySelector(".canvas");
+        const cameraMethod=navigator.mediaDevices.getUserMedia();
+        if(cameraMethod){
+            navigator.mediaDevices.getUserMedia({
+                video:true,
+                audio:false
+            })
+            .then((stremLive)=>{
+             video.srcObject=stremLive;
+            })
+            .catch((err)=>{
+                console.log(err);
+            });
+        }
+        var i=0;
+ const handleClicl=()=>{
+    const ctx=canvas.getContext("2d");
+    switch (i) {
+        case 0:ctx.drawImage(video,0,20,90,90);
+        break;
+        case 1: ctx.drawImage(video,100,20,90,90);;
+        break;
+        case 2:ctx.drawImage(video,200,20,90,90);
+        break;
+        default:alert("memory is full.");;
+        
+    }
+  
+
+   i++;
+   
+  }
+
+
+ 
+    </script>
+</body>
+</html>
